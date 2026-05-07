@@ -1,4 +1,6 @@
 [build]
+builder = "nixpacks"
+rootDirectory = "backend"
 buildCommand = "pip install -r requirements.txt"
 
 [deploy]
