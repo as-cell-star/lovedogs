@@ -1,10 +1,10 @@
 ﻿[build]
 builder = "nixpacks"
 rootDirectory = "backend"
-buildCommand = "pip install -r requirements.txt && chmod +x start.sh"
+buildCommand = "pip install -r requirements.txt"
 
 [deploy]
-startCommand = "./start.sh"
+startCommand = "sh -c 'uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}'"
 healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
