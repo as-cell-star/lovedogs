@@ -2898,3 +2898,10 @@ async def block_user(
     logger.info(f"User {current_user.id} blocked user {user_id}")
     return {"message": f"User has been blocked successfully", "blocked": True}
 
+
+from fastapi import FastAPI
+
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
+
