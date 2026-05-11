@@ -1,8 +1,9 @@
 [build]
 builder = "nixpacks"
-buildCommand = "npm install && npx expo export --platform web"
 
 [deploy]
 startCommand = "npx serve dist --single --listen ${PORT:-3000}"
 healthcheckPath = "/"
 healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 5
