@@ -2905,3 +2905,8 @@ from fastapi import FastAPI
 async def health():
     return {"status": "ok"}
 
+
+
+@app.get("/")
+def root():
+    return {"status": "Lovedogs API is running", "docs": "/docs"}
