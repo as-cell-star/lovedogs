@@ -1,9 +1,8 @@
 [build]
-builder = "nixpacks"
-rootDirectory = "backend"
+builder = "dockerfile"
+dockerfilePath = "backend/Dockerfile"
 
 [deploy]
-startCommand = "python3 -m uvicorn main:app --host 0.0.0.0 --port ${PORT:-8080}"
 healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
