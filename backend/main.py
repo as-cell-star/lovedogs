@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 import uuid
-import os
 import logging
 import json
 import time
@@ -2914,9 +2913,11 @@ def root():
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
+
 if os.path.exists("static"):
-    app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
-@app.get("/app")
-@app.get("/app/{rest:path}")
-def serve_frontend(rest: str = ""):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/app", include_in_schema=False)
+@app.get("/app/{rest:path}", include_in_schema=False)
+async def frontend(rest: str = ""):
     return FileResponse("static/index.html")
