@@ -2910,3 +2910,13 @@ async def health():
 @app.get("/")
 def root():
     return {"status": "Lovedogs API is running", "docs": "/docs"}
+
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
+if os.path.exists("static"):
+    app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
+@app.get("/app")
+@app.get("/app/{rest:path}")
+def serve_frontend(rest: str = ""):
+    return FileResponse("static/index.html")
