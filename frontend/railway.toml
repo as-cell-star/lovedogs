@@ -1,11 +1,10 @@
 [build]
 builder = "nixpacks"
-rootDirectory = "backend"
-buildCommand = "pip install -r requirements.txt"
+buildCommand = "npm install && npx expo export --platform web"
 
 [deploy]
-startCommand = "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"
-healthcheckPath = "/health"
+startCommand = "npx serve dist --single --listen ${PORT:-3000}"
+healthcheckPath = "/"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 5
