@@ -6,5 +6,3 @@ buildCommand = "npm install && npx expo export --platform web"
 startCommand = "npx serve dist --single --listen ${PORT:-3000}"
 healthcheckPath = "/"
 healthcheckTimeout = 300
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 5
