@@ -2915,4 +2915,9 @@ if os.path.exists("static"):
 # Serve frontend for ALL unmatched routes including /
 @app.get("/{full_path:path}", include_in_schema=False)
 async def serve_frontend(full_path: str):
+    import os
+    # Try to serve actual static file first
+    file_path = os.path.join("static", full_path)
+    if os.path.isfile(file_path):
+        return FileResponse(file_path)
     return FileResponse("static/index.html")
