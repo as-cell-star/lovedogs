@@ -2904,20 +2904,15 @@ from fastapi import FastAPI
 async def health():
     return {"status": "ok"}
 
-
-
-@app.get("/")
-def root():
-    return {"status": "Lovedogs API is running", "docs": "/docs"}
-
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
 
+# Serve static assets
 if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/app", include_in_schema=False)
-@app.get("/app/{rest:path}", include_in_schema=False)
-async def frontend(rest: str = ""):
+# Serve frontend for ALL unmatched routes including /
+@app.get("/{full_path:path}", include_in_schema=False)
+async def serve_frontend(full_path: str):
     return FileResponse("static/index.html")
