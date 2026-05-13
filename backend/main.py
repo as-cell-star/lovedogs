@@ -2914,11 +2914,18 @@ if os.path.exists("static"):
 app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
 
 # Serve frontend for ALL unmatched routes including /
+
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
+
+app.mount("/_expo", StaticFiles(directory="static/_expo"), name="expo")
+app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
+app.mount("/favicon.ico", StaticFiles(directory="static"), name="favicon")
+
 @app.get("/{full_path:path}", include_in_schema=False)
 async def serve_frontend(full_path: str):
-    import os
-    # Try to serve actual static file first
-    file_path = os.path.join("static", full_path)
+    file_path = f"static/{full_path}"
     if os.path.isfile(file_path):
         return FileResponse(file_path)
     return FileResponse("static/index.html")
