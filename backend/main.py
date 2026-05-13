@@ -2908,24 +2908,4 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
 
-# Serve static assets
-if os.path.exists("static"):
-    app.mount("/_expo", StaticFiles(directory="static/_expo"), name="expo")
-app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
-
-# Serve frontend for ALL unmatched routes including /
-
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-import os
-
-app.mount("/_expo", StaticFiles(directory="static/_expo"), name="expo")
-app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
-app.mount("/favicon.ico", StaticFiles(directory="static"), name="favicon")
-
-@app.get("/{full_path:path}", include_in_schema=False)
-async def serve_frontend(full_path: str):
-    file_path = f"static/{full_path}"
-    if os.path.isfile(file_path):
-        return FileResponse(file_path)
-    return FileResponse("static/index.html")
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
