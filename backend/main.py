@@ -2910,7 +2910,8 @@ import os
 
 # Serve static assets
 if os.path.exists("static"):
-    app.mount("/static", StaticFiles(directory="static"), name="static")
+    app.mount("/_expo", StaticFiles(directory="static/_expo"), name="expo")
+app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
 
 # Serve frontend for ALL unmatched routes including /
 @app.get("/{full_path:path}", include_in_schema=False)

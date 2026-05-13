@@ -45,10 +45,8 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "bundleIdentifier": "com.lovedogs360.app",
-      "name": "Lovedogs 360",
-      "bundler": "metro"
+      "bundler": "metro",
+      "output": "static"
     },
     "plugins": [
       "expo-secure-store",
